@@ -1,2 +1,5 @@
 # noTeX
-script for LaTeX file management - quick creation of notes, assignments in comprehensible directory tree
+Python script for LaTeX file management.
+
+# templates
+By default script uses [latex-templates](https://github.com/straightchlorine/latex-template).
