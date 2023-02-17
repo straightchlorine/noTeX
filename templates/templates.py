@@ -18,7 +18,6 @@ class NoTeXTemplates:
                     if entry.is_dir() and not entry.name == '.git':
                         self.__templates.append(entry)
 
-
     def getentries(self):
         return self.__templates
 
