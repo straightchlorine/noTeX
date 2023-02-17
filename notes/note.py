@@ -1,3 +1,6 @@
+"""
+    Note class - base class of every single created note.
+"""
 class NoTeXNote:
     # Identifies the note - for now it is simply the number of
     # notes currently in the directory.
