@@ -1,7 +1,12 @@
 import os
 
+"""
+    Class responsible for managing latex templates.
+"""
 class NoTeXTemplates:
+    # Potential template paths
     __dir = []
+    # DirEntry objects containing the templates
     __templates = []
 
     def __init__(self, dirs = None):
@@ -18,15 +23,33 @@ class NoTeXTemplates:
                     if entry.is_dir() and not entry.name == '.git':
                         self.__templates.append(entry)
 
+    """
+        Provide raw DirEntry objects corresponding to each of the templates.
+
+        :return: DirEntry objects of all loaded templates
+        :rtype: list (DirEntry)
+    """
     def getentries(self):
         return self.__templates
 
+    """
+        Provide paths to each of the loaded templates
+
+        :return: paths of all loaded templates
+        :rtype: list (string)
+    """
     def getpaths(self):
         paths = []
         for entry in self.__templates:
             paths.append(entry.path)
         return paths
 
+    """
+        Provide names of loaded templates.
+
+        :return: names of all loaded templates
+        :rtype: list (string)
+    """
     def getnames(self):
         names = []
         for entry in self.__templates:
