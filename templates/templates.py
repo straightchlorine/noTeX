@@ -1,14 +1,23 @@
 import os
 
 class NoTeXTemplates:
-    __dir = os.path.join(os.path.expanduser('~'), 'latex-template')
+    __dir = []
     __templates = []
 
-    def __init__(self):
-        with os.scandir(self.__dir) as it:
-            for entry in it:
-                if entry.is_dir() and not entry.name == '.git':
-                    self.__templates.append(entry)
+    def __init__(self, dirs = None):
+        if dirs is not None:
+            for entry in dirs:
+                if '~' in entry:
+                    entry = entry.replace('~', os.path.expanduser('~'))
+                if os.path.lexists(entry):
+                    self.__dir.append(entry)
+
+        for dir in self.__dir:
+            with os.scandir(dir) as it:
+                for entry in it:
+                    if entry.is_dir() and not entry.name == '.git':
+                        self.__templates.append(entry)
+
 
     def getentries(self):
         return self.__templates
@@ -26,5 +35,5 @@ class NoTeXTemplates:
         return names
 
 if __name__ == "__main__":
-    templates = NoTeXTemplates()
+    templates = NoTeXTemplates([ '~/latex-template' ])
     print(templates.getpaths())
