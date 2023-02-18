@@ -53,7 +53,7 @@ class NoTeXTemplates:
     def getnames(self):
         names = []
         for entry in self.__templates:
-            names.append(entry.names)
+            names.append(entry.name)
         return names
 
 if __name__ == "__main__":
