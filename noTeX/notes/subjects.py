@@ -34,12 +34,14 @@ class NoTeXSubjects:
         paths = []
         for subject in self.__subjects:
             paths.append(subject.path)
-        return paths 
+        return paths
 
     def add_subject(self, subject):
         names = self.get_subjects()
         if subject not in names:
-            os.mkdir(os.path.join(str(self.__root), subject))
+            new_path = os.path.join(str(self.__root), subject)
+            os.mkdir(new_path)
+            os.mkdir(os.path.join(new_path, 'materials'))
 
     def get_subject_path(self, subject):
         for entry in self.__subjects:
