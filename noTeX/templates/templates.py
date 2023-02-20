@@ -29,7 +29,7 @@ class NoTeXTemplates:
         :return: DirEntry objects of all loaded templates
         :rtype: list (DirEntry)
     """
-    def getentries(self):
+    def get_template_entries(self):
         return self.__templates
 
     """
@@ -38,7 +38,7 @@ class NoTeXTemplates:
         :return: paths of all loaded templates
         :rtype: list (string)
     """
-    def getpaths(self):
+    def get_template_paths(self):
         paths = []
         for entry in self.__templates:
             paths.append(entry.path)
@@ -50,7 +50,7 @@ class NoTeXTemplates:
         :return: names of all loaded templates
         :rtype: list (string)
     """
-    def getnames(self):
+    def get_template_names(self):
         names = []
         for entry in self.__templates:
             names.append(entry.name)
