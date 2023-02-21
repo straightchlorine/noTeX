@@ -56,6 +56,7 @@ class NoTeXTemplates:
             names.append(entry.name)
         return names
 
-if __name__ == "__main__":
-    templates = NoTeXTemplates([ '~/latex-template' ])
-    print(templates.getpaths())
+    def get_template_path(self, template):
+        for entry in self.__templates:
+            if entry.name == template:
+                return entry.path
