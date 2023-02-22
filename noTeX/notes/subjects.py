@@ -47,3 +47,8 @@ class NoTeXSubjects:
         for entry in self.__subjects:
             if entry.name == subject:
                 return entry.path
+
+    def get_subject_entry(self, subject):
+        for entry in self.__subjects:
+            if entry.name == subject:
+                return entry
