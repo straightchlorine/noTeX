@@ -1,11 +1,12 @@
 import os
 
+from noTeX.dir.logger import NoTeXLogger
 """
     Class responsible for managing latex templates.
 """
 class NoTeXTemplates:
     # Potential template paths
-    __dir = []
+    __dir = [str(NoTeXLogger.get_opt('templates'))]
     # DirEntry objects containing the templates
     __templates = []
 
@@ -60,3 +61,8 @@ class NoTeXTemplates:
         for entry in self.__templates:
             if entry.name == template:
                 return entry.path
+
+    def get_template_entry(self, template):
+        for entry in self.__templates:
+            if entry.name == template:
+                return entry

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import os
+from posix import DirEntry
 from noTeX.dir.logger import NoTeXLogger
 
 """
@@ -47,8 +48,10 @@ class NoTeXSubjects:
         for entry in self.__subjects:
             if entry.name == subject:
                 return entry.path
+        return None
 
     def get_subject_entry(self, subject):
         for entry in self.__subjects:
             if entry.name == subject:
                 return entry
+        return None
