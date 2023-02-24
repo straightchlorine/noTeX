@@ -1,16 +1,23 @@
+#!/usr/bin/python
+
 import os
+from noTeX.dir.logger import NoTeXLogger
 
 """
     Class reads and adds subjects of notes (general titles for example 'mathematics'
     would contain notes from math class etc.)
 """
 class NoTeXSubjects:
+    # Directory root, where the subjects are stored.
     __root = None
+    # DirEntry objects containing the subjects
     __subjects = []
 
-    def __init__(self, root):
-        self.__root = root
-        self.__get_entries()
+    def __init__(self):
+        root = NoTeXLogger.get_opt('root')
+        if root is not None:
+            self.__root = str(root)
+            self.__get_entries()
 
     def __get_entries(self):
         with os.scandir(self.__root) as it:
@@ -32,14 +39,9 @@ class NoTeXSubjects:
     def add_subject(self, subject):
         names = self.get_subjects()
         if subject not in names:
-            os.mkdir(os.path.join(self.__root, subject))
+            os.mkdir(os.path.join(str(self.__root), subject))
 
     def get_subject_path(self, subject):
         for entry in self.__subjects:
             if entry.name == subject:
                 return entry.path
-
-if __name__ == "__main__":
-    group = NoTeXSubjects(os.path.join(os.path.expanduser('~'), 'uni', 'lectures'))
-    print(group.get_subjects())
-    print(group.get_subject_path('base_management'))
