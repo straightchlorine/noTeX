@@ -1,13 +1,15 @@
 #!/usr/bin/python
 
-import os
+from PyInquirer import style_from_dict, Token, prompt
 
-from PyInquirer import style_from_dict, Token, prompt, Separator, print_json
 from noTeX.dir.logger import NoTeXLogger
 from noTeX.notes.note import NoTeXNote
 from noTeX.notes.subjects import NoTeXSubjects
 from noTeX.templates.templates import NoTeXTemplates
 
+"""
+    Class providing visual interface.
+"""
 class NoTeXUI:
     # style for the graphical UI
     style = style_from_dict({
@@ -50,24 +52,8 @@ class NoTeXUI:
         if selected == 'new subject':
             selected = select_new_subject()
             notex_subjects.add_subject(selected)
-        
-        print(selected)
+
         return selected
-
-    @staticmethod
-    def select_template(notex_templates):
-        options = notex_templates.get_template_names()
-        print(options)
-        template_list = [
-            {
-                'type' : 'list',
-                'name' : 'template_list',
-                'message' : 'subject:',
-                'choices' : options,
-            }
-        ]
-
-        return prompt(template_list, style = NoTeXUI.style).get('template_list')
 
     @staticmethod
     def select_note_type():
@@ -87,15 +73,34 @@ class NoTeXUI:
 
         return prompt(notetype, style = NoTeXUI.style).get('note_type')
 
-class NoTeX:
+    @staticmethod
+    def select_template(notex_templates):
+        options = notex_templates.get_template_names()
+        template_list = [
+            {
+                'type' : 'list',
+                'name' : 'template_list',
+                'message' : 'subject:',
+                'choices' : options,
+            }
+        ]
 
+        return prompt(template_list, style = NoTeXUI.style).get('template_list')
+
+"""
+    Driver class.
+"""
+class NoTeX:
     def new_note(self):
         notex_subjects = NoTeXSubjects()
         notex_templates = NoTeXTemplates()
 
         notex_subject = NoTeXUI.select_subject(notex_subjects)
         notex_type = NoTeXUI.select_note_type()
-        notex_template = NoTeXUI.select_template(notex_templates)
+        if notex_type != 'code':
+            notex_template = NoTeXUI.select_template(notex_templates)
+        else:
+            notex_template = 'code'
 
         NoTeXNote(
             notex_subject,
