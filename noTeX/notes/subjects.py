@@ -45,7 +45,7 @@ class NoTeXSubjects:
             os.mkdir(os.path.join(new_path, 'materials'))
 
     @staticmethod
-    def get_subject_path(subject):
+    def getpath(subject):
         for entry in NoTeXSubjects.__subjects:
             if entry.name == subject:
                 return entry.path
