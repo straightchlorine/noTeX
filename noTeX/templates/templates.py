@@ -3,6 +3,8 @@ import os
 from noTeX.dir.logger import NoTeXLogger
 """
     Class responsible for managing latex templates.
+
+    TODO: add code template (artificial one)
 """
 class NoTeXTemplates:
     # Potential template paths
