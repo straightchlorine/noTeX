@@ -1,17 +1,18 @@
 #!/usr/bin/python
 
-"""
-    Note class - base class of every single created note.
-"""
+import os
+from datetime import datetime
 
 from noTeX.notes.subjects import NoTeXSubjects
 from noTeX.templates.templates import NoTeXTemplates
 from noTeX.utility.utils import NoTeXUtility
 
-import os
-from datetime import datetime
 
+"""
+    NoTeXNote.
 
+    Class corresponding to created note.
+"""
 class NoTeXNote:
     __id = None
     __path = None
@@ -54,4 +55,4 @@ class NoTeXNote:
             os.system('cp ' + self.__template_path + '/*.tex .')
             os.rename('template.tex', str(date + '.tex'))
 
-        os.system('cd ' + new_path)
+        os.system('cd ' + new_dir)
