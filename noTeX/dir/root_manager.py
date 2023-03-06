@@ -2,12 +2,13 @@
     Creation and management of the directory tree, each object manages separate
     root - for example terms at the university:
     university
-        +- term1
+        +- 1_term
         |
         +- ...
         |
-        +- termn
+        +- 2_termn
     In such case each term is separate root.
+    TODO - base on root /uni in this case find the subroots and expand the config
 """
 class NoTeXFileManager:
     # Path to the root directory
