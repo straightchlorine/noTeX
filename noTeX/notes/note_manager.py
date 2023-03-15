@@ -2,24 +2,19 @@
 
 import os
 from datetime import datetime
-from noTeX.dir.logger import NoTeXLogger
 
+from noTeX.dir.logger import NoTeXLogger
 from noTeX.exceptions.exc import NoSubjectPathException
 from noTeX.notes.subjects import NoTeXSubjects
 from noTeX.utility.utils import NoTeXUtility
 
-class NoTeXNoteId:
+class NoTeXNoteData:
     """
     Class provides identification string for each created note,
-    in order to quickly find and navigate to given note.
+    along with all needed information for easier access.
 
-    Attributes
-    ----------
-    __note_main_root : os.PathLike
-    __note_subject : str
-    __note_type : str
-    __note_template : str
-    __id : str
+    In the future the id is meant to allow for quick navigation
+    in the root directory.
 
     Methods
     -------
@@ -75,6 +70,40 @@ class NoTeXNoteId:
         """
         return self.__id
 
+    def get_subject(self):
+        """
+        Getter, provides the subject name for outside use.
+
+        Returns
+        -------
+        subject
+            subject of the note
+        """
+        return self.__note_subject
+
+
+    def get_type(self):
+        """
+        Getter, provides selected type for outside use.
+
+        Returns
+        -------
+        __note_type
+            type of the note
+        """
+        return self.__note_type
+
+    def get_template(self):
+        """
+        Getter, provides the template name for outside use.
+
+        Returns
+        -------
+        __note_template
+            template of the note
+        """
+        return self.__note_template
+
 
 class NoTeXNoteManager:
     """
@@ -91,7 +120,7 @@ class NoTeXNoteManager:
     """
 
     @staticmethod
-    def __make_note_path(note_subject, note_type, note_template):
+    def __make_note_path(note_data):
         """
         Function builds and creates directory for new note.
 
@@ -102,38 +131,44 @@ class NoTeXNoteManager:
 
         Parameters
         ----------
-        note_subject : str
-            subject of the note
-        note_type : str
-            type of the note
-        note_template : str
-            template selected for the note
+        note_data : NoTeXNoteData
+            object responsible for storing and processing data
+            needed in order to create note
+
+        Raises
+        ------
+        NoSubjectPathException
+            in case subject path was not created
         """
         # subject path
-        s_path = NoTeXSubjects.getpath(note_subject)
+        s_path = NoTeXSubjects.getpath(note_data.get_subject())
         if s_path is None:
             raise NoSubjectPathException('Subject path missing.')
 
         # base for the note path (starting with subject path)
-        path = os.path.join(s_path, note_type)
+        path = os.path.join(s_path, note_data.get_type())
         if os.path.exists(path):
             os.mkdir(path)
 
-        # creating id object
-        note_id = NoTeXNoteId(NoTeXLogger.get_opt('root'),
-                              note_subject,
-                              note_type,
-                              note_template)
-
         # creating name for the directory
-        internal_id = note_id.get_id()
+        internal_id = note_data.get_id()
         dir_name = str(internal_id) + '-'                        \
                 + datetime.today().strftime('%a-%d-%b-%Y') + '-' \
-                + note_template
+                + note_data.get_template()
         path = os.path.join(path, dir_name)
 
         os.mkdir(path)
 
     @staticmethod
     def create_note(note_subject, note_type, note_template):
-        pass
+        # creating note data object
+        note_data = NoTeXNoteData(
+                        NoTeXLogger.get_opt('root'),
+                        note_subject,
+                        note_type,
+                        note_template)
+
+        # here note will be put together
+        # * make the path
+        # * get the Note object done - give it everythin it needs
+        # * give some sort of notification that it succeded
