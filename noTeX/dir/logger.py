@@ -9,7 +9,8 @@ import os
 """
 class NoTeXLogger:
     __config = {
-        'root' : os.path.join(os.path.expanduser('~'), 'uni', '2_term'),
+        'root' : os.path.join(os.path.expanduser('~'), 'uni'),
+        'subroot' : os.path.join(os.path.expanduser('~'), 'uni', '2_term'),
         'templates' : os.path.join(os.path.expanduser('~'), 'latex-template'),
     }
     __path = os.path.expanduser('../.config.json')
