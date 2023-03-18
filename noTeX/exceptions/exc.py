@@ -1,4 +1,4 @@
-class NoTeXNoSubjectPathException(Exception):
+class NoSubjectPathException(Exception):
     """Exception raised in case there is no subject path.
 
     Attributes:
