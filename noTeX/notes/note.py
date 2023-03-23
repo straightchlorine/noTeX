@@ -1,11 +1,6 @@
 #!/usr/bin/python
 
-import os
-from datetime import datetime
-
-from noTeX.notes.subjects import NoTeXSubjects
-from noTeX.templates.templates import NoTeXTemplates
-from noTeX.utility.utils import NoTeXUtility
+from noTeX.notes.note_manager import NoTeXNoteData
 
 class NoTeXNote:
     """
@@ -16,48 +11,12 @@ class NoTeXNote:
     TODO
     ____
     PLUG IN INTO THE NOTE DATA OBJECT AND NOTE MANAGER
-    1. use data given by NoteData object
-    2. create method to nicely make it into json
+    2. method to nicely turn it into json along with the subobject of note data
     """
-    __id = None
-    __path = None
-    __date = None
-    __type : str
-    __template : str
-    __template_path : str
-    __subject : str
-    __subject_path : str
+    __data_object : NoTeXNoteData
 
-    def __init__(self, subject, note_type, template):
-        temp_subjects = NoTeXSubjects()
-        temp_templates = NoTeXTemplates()
+    def __init__(self, note_data_object):
+        self.__data_object = note_data_object
 
-        self.__subject = subject
-        self.__subject_path = str(temp_subjects.get_subject_path(subject))
-        self.__type = note_type
-        self.__template = template
-        self.__template_path = str(temp_templates.get_template_path(template))
-
-        self.create_path()
-
-    def create_path(self):
-        base_path = os.path.join(self.__subject_path, self.__type)
-
-        if not os.path.exists(base_path):
-            os.mkdir(base_path)
-
-        os.chdir(base_path)
-        id = NoTeXUtility.get_dir_size(base_path)
-        self.__id = id
-        date = datetime.today().strftime('%a-%d-%b-%Y')
-
-        new_dir = str(id) + '-' + date + '-' + self.__template
-        new_path = os.path.join(base_path, new_dir)
-        os.mkdir(new_path)
-        os.chdir(new_path)
-
-        if self.__type != 'code':
-            os.system('cp ' + self.__template_path + '/*.tex .')
-            os.rename('template.tex', str(date + '.tex'))
-
-        os.system('cd ' + new_dir)
+    def export_to_json():
+        pass
