@@ -25,6 +25,7 @@ class NoTeXNoteData:
     ____
     1. id string initial idea: <main_root>:<subject>:<type>:<internal_id>
     2. export each id to config and import it from config as well
+    3. maybe get template copying here also
     """
     # path to the root of the note directory, a the very top of the hierarchy
     __note_main_root : os.PathLike
