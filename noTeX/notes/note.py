@@ -7,13 +7,18 @@ from noTeX.notes.subjects import NoTeXSubjects
 from noTeX.templates.templates import NoTeXTemplates
 from noTeX.utility.utils import NoTeXUtility
 
-
-"""
-    NoTeXNote.
-
-    Class corresponding to created note.
-"""
 class NoTeXNote:
+    """
+
+    Methods
+    -------
+
+    TODO
+    ____
+    PLUG IN INTO THE NOTE DATA OBJECT AND NOTE MANAGER
+    1. use data given by NoteData object
+    2. create method to nicely make it into json
+    """
     __id = None
     __path = None
     __date = None
