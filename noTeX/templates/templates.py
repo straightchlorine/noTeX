@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from noTeX.dir.logger import NoTeXLogger
 """
@@ -59,10 +60,12 @@ class NoTeXTemplates:
             names.append(entry.name)
         return names
 
-    def get_template_path(self, template):
-        for entry in self.__templates:
+    @staticmethod
+    def get_template_path(template) -> os.PathLike:
+        for entry in NoTeXTemplates.__templates:
             if entry.name == template:
                 return entry.path
+        return Path('.')
 
     def get_template_entry(self, template):
         for entry in self.__templates:
