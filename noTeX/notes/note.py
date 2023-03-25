@@ -17,6 +17,3 @@ class NoTeXNote:
 
     def __init__(self, note_data_object):
         self.__data_object = note_data_object
-
-    def export_to_json():
-        pass
