@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import json
 import os
 from datetime import datetime
 
@@ -56,6 +57,13 @@ class NoTeXNoteData:
         self.__note_template_path = NoTeXTemplates.get_template_path(
                                                     self.__note_template)
         self.__make_id()
+
+    def export_json(self):
+        """Exports class to JSON.
+
+        For future versions.
+        """
+        return json.dumps(self.__dict__)
 
     def __make_id(self):
         """Function generates the id, called in the constructor.
